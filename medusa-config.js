@@ -52,6 +52,17 @@ const plugins = [
     },
   },
   {
+    resolve: "medusa-file-r2",
+    options: {
+      account_id: "aa667b40f6480498e4fcd0681c03c3b3",
+      access_key: "f855cbfcb43d082e1af379acfad68719",
+      secret_key:
+        "b37bea7b76d463d7bb132e9106c8b16aff3d6ce84991d0d3808bfd46f37a442b",
+      bucket: "florius",
+      public_url: "https://pub-1235a9efdd9d42c092c7214b7e33933e.r2.dev",
+    },
+  },
+  {
     resolve: "@medusajs/admin",
     /** @type {import('@medusajs/admin').PluginOptions} */
     options: {
