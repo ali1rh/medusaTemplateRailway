@@ -1,0 +1,65 @@
+# version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container
+    restart: always
+    ports:
+      - 6500:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: kir
+      POSTGRES_DB: medusa
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "password"
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+
+  redis:
+    image: redis:latest
+    container_name: redis_container
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+
+  redis_admin:
+    image: rediscommander/redis-commander:latest
+    container_name: redis_admin_container
+    restart: always
+    environment:
+      - REDIS_HOSTS=localhost:6379
+    ports:
+      - "8081:8081"
+
+  melisearch:
+    image: getmeili/meilisearch:latest
+    container_name: melisearch_container
+    restart: always
+    ports:
+      - 7700:7700
+    volumes:
+      - meilisearch_data:/data.ms
+    environment:
+      MEILI_MASTER_KEY: "xersc2u606vd1u898y7jk4nh42j705by" # <-- Set your master key here
+
+volumes:
+  pgdata:
+  pgadmin_data:
+  redis_data:
+  meilisearch_data:
